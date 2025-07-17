@@ -4,42 +4,42 @@ function ProgressBar({ currentStep, totalSteps, steps, onStepClick }) {
   const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100
 
   return (
-    <div className="mb-8">
+    <div className="glass-card rounded-xl p-6">
       {/* Progress line */}
       <div className="relative">
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-4">
           {steps.map((step, index) => (
             <div
               key={step.id}
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer step-item"
               onClick={() => onStepClick(step.id)}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300 ${
                   step.id < currentStep
-                    ? 'bg-green-500 text-white'
+                    ? 'step-completed'
                     : step.id === currentStep
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 text-gray-500'
+                    ? 'step-active'
+                    : 'step-pending'
                 }`}
               >
                 {step.id < currentStep ? (
-                  <Check className="w-4 h-4" />
+                  <Check className="w-5 h-5" />
                 ) : (
                   step.id
                 )}
               </div>
-              <span className="text-xs mt-1 text-gray-600 text-center max-w-20">
+              <span className="text-xs mt-2 text-white/80 text-center max-w-20 font-medium">
                 {step.title}
               </span>
             </div>
           ))}
         </div>
         
-        {/* Progress bar */}
-        <div className="absolute top-4 left-4 right-4 h-0.5 bg-gray-200 -translate-y-1/2">
+        {/* Progress bar avec gradient */}
+        <div className="absolute top-5 left-5 right-5 h-1 bg-white/20 rounded-full -translate-y-1/2">
           <div
-            className="h-full bg-blue-500 transition-all duration-300"
+            className="h-full bg-gradient-to-r from-blue-400 to-green-400 rounded-full transition-all duration-500 ease-out shadow-lg"
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
